@@ -1,8 +1,14 @@
 import { execa } from 'execa'
 import type { GitFile } from '../types.js'
 
+async function getGitRoot(): Promise<string> {
+  const { stdout } = await execa('git', ['rev-parse', '--show-toplevel'])
+  return stdout.trim()
+}
+
 export async function getStatus(): Promise<GitFile[]> {
-  const { stdout } = await execa('git', ['status', '--porcelain'])
+  const cwd = await getGitRoot()
+  const { stdout } = await execa('git', ['status', '--porcelain'], { cwd })
   if (!stdout.trim()) return []
 
   return stdout
@@ -33,25 +39,30 @@ export async function getStatus(): Promise<GitFile[]> {
 
 export async function stageFiles(paths: string[]): Promise<void> {
   if (paths.length === 0) return
-  await execa('git', ['add', '--', ...paths])
+  const cwd = await getGitRoot()
+  await execa('git', ['add', '--', ...paths], { cwd })
 }
 
 export async function unstageFiles(paths: string[]): Promise<void> {
   if (paths.length === 0) return
-  await execa('git', ['restore', '--staged', '--', ...paths])
+  const cwd = await getGitRoot()
+  await execa('git', ['restore', '--staged', '--', ...paths], { cwd })
 }
 
 export async function commitMessage(msg: string): Promise<string> {
-  const { stdout } = await execa('git', ['commit', '-m', msg])
+  const cwd = await getGitRoot()
+  const { stdout } = await execa('git', ['commit', '-m', msg], { cwd })
   return stdout
 }
 
 export async function amendCommit(msg: string): Promise<string> {
-  const { stdout } = await execa('git', ['commit', '--amend', '-m', msg])
+  const cwd = await getGitRoot()
+  const { stdout } = await execa('git', ['commit', '--amend', '-m', msg], { cwd })
   return stdout
 }
 
 export async function getLastCommit(): Promise<string> {
-  const { stdout } = await execa('git', ['log', '-1', '--pretty=%s'])
+  const cwd = await getGitRoot()
+  const { stdout } = await execa('git', ['log', '-1', '--pretty=%s'], { cwd })
   return stdout.trim()
 }

@@ -1,6 +1,6 @@
 {
   "name": "da-commit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Interactive git commit helper CLI",
   "type": "module",
   "bin": {

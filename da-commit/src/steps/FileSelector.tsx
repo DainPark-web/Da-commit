@@ -6,6 +6,7 @@ import type { GitFile, CommitState } from '../types.js'
 interface Props {
   files: GitFile[]
   onNext: (partial: Partial<CommitState>) => void
+  onCancel: () => void
 }
 
 function statusColor(status: string): string {
@@ -28,7 +29,7 @@ function statusLabel(status: string): string {
   }
 }
 
-export default function FileSelector({ files: initialFiles, onNext }: Props) {
+export default function FileSelector({ files: initialFiles, onNext, onCancel }: Props) {
   const [files, setFiles] = useState<GitFile[]>(initialFiles)
   const [cursor, setCursor] = useState(0)
   const [busy, setBusy] = useState(false)
@@ -36,7 +37,9 @@ export default function FileSelector({ files: initialFiles, onNext }: Props) {
   useInput(async (input, key) => {
     if (busy) return
 
-    if (key.upArrow) {
+    if (key.escape) {
+      onCancel()
+    } else if (key.upArrow) {
       setCursor((c) => Math.max(0, c - 1))
     } else if (key.downArrow) {
       setCursor((c) => Math.min(files.length - 1, c + 1))
@@ -87,7 +90,7 @@ export default function FileSelector({ files: initialFiles, onNext }: Props) {
         <Text bold color="cyan">Step 1/5 — Stage files</Text>
       </Box>
       <Box marginBottom={1}>
-        <Text dimColor>↑↓ navigate  space toggle  a toggle all  enter continue</Text>
+        <Text dimColor>↑↓ navigate  space toggle  a toggle all  enter continue  esc cancel</Text>
       </Box>
       {files.length === 0 ? (
         <Text color="red">No changes detected. Make some changes first.</Text>

@@ -87,6 +87,7 @@ export default function App() {
       <FileSelector
         files={files}
         onNext={(partial) => next({ ...partial, files: partial.files ?? files })}
+        onCancel={() => process.exit(0)}
       />
     )
   }

@@ -68,8 +68,21 @@ da-commit --amend  # amend last commit
 
 ## Requirements
 
-- Node.js >= 18
-- Git
+| 항목 | 최소 버전 | 확인 방법 |
+|------|-----------|-----------|
+| Node.js | **18.0.0** 이상 | `node -v` |
+| npm | **8.0.0** 이상 | `npm -v` |
+| Git | **2.0.0** 이상 | `git --version` |
+
+> Node.js 18 미만에서는 ESM 지원 문제로 실행되지 않습니다.
+>
+> Node.js 설치는 [nodejs.org](https://nodejs.org) 또는 [nvm](https://github.com/nvm-sh/nvm)을 권장합니다.
+
+```bash
+# nvm 사용 시
+nvm install 18
+nvm use 18
+```
 
 ## License
 

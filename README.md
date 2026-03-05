@@ -68,8 +68,21 @@ da-commit --amend  # amend last commit
 
 ## Requirements
 
-- Node.js >= 18
-- Git
+| | Minimum | Check |
+|---|---------|-------|
+| Node.js | **18.0.0** | `node -v` |
+| npm | **8.0.0** | `npm -v` |
+| Git | **2.0.0** | `git --version` |
+
+> Versions below Node.js 18 are not supported due to ESM compatibility.
+>
+> Install Node.js via [nodejs.org](https://nodejs.org) or [nvm](https://github.com/nvm-sh/nvm).
+
+```bash
+# with nvm
+nvm install 18
+nvm use 18
+```
 
 ## License
 

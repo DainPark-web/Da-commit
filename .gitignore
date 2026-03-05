@@ -1,4 +1,5 @@
 # Dependencies
+dev_memo/
 node_modules/
 .pnp
 .pnp.js

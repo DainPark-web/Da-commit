@@ -58,9 +58,14 @@ export default function Result({ state }: Props) {
     )
   }
 
+  const { amended, push } = state
+  const label = amended
+    ? push ? '✓ Amended & pushed!' : '✓ Amended!'
+    : push ? '✓ Committed & pushed!' : '✓ Committed!'
+
   return (
     <Box flexDirection="column" paddingX={1}>
-      <Text color="green" bold>✓ Committed!</Text>
+      <Text color="green" bold>{label}</Text>
       {output && <Text dimColor>{output}</Text>}
     </Box>
   )

@@ -2,6 +2,8 @@
 
 Interactive CLI for writing conventional commits — step by step, in the terminal.
 
+
+
 ## Features
 
 - Interactive TUI built with [Ink](https://github.com/vaddigor/ink)

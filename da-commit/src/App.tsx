@@ -11,15 +11,17 @@ import { getLastCommit } from './utils/git.js'
 import { COMMIT_TYPES } from './utils/commitTypes.js'
 import type { Step, CommitState } from './types.js'
 
+const isAmend = process.argv.includes('--amend')
+const isPush = process.argv.includes('--push')
+
 const initialState: CommitState = {
   files: [],
   selectedType: null,
   scope: '',
   message: '',
   amended: false,
+  push: isPush,
 }
-
-const isAmend = process.argv.includes('--amend')
 
 export default function App() {
   const { files, loading, error } = useGitStatus()

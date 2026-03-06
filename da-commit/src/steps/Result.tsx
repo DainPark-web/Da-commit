@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Text } from 'ink'
 import Spinner from 'ink-spinner'
-import { commitMessage, amendCommit } from '../utils/git.js'
+import { commitMessage, amendCommit, pushAfterCommit } from '../utils/git.js'
 import { addScope } from '../hooks/useScopes.js'
 import { buildMessage } from '../utils/format.js'
 import type { CommitState } from '../types.js'
@@ -18,12 +18,17 @@ export default function Result({ state }: Props) {
   useEffect(() => {
     const run = async () => {
       try {
-        const { selectedType, scope, message, amended } = state
+        const { selectedType, scope, message, amended, push } = state
         if (!selectedType) throw new Error('No commit type selected')
         const msg = buildMessage(selectedType, scope, message)
         const out = amended ? await amendCommit(msg) : await commitMessage(msg)
         if (scope) addScope(scope)
-        setOutput(out)
+        let fullOutput = out
+        if (push) {
+          const pushOut = await pushAfterCommit()
+          fullOutput = [out, pushOut].filter(Boolean).join('\n')
+        }
+        setOutput(fullOutput)
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : String(err))
       } finally {

@@ -18,4 +18,5 @@ export interface CommitState {
   scope: string
   message: string
   amended: boolean
+  push: boolean
 }

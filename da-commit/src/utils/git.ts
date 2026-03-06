@@ -61,6 +61,12 @@ export async function amendCommit(msg: string): Promise<string> {
   return stdout
 }
 
+export async function pushAfterCommit(): Promise<string> {
+  const root = await getGitRoot()
+  const { stdout } = await execa('git', ['push'], { cwd: root })
+  return stdout.trim()
+}
+
 export async function getLastCommit(): Promise<string> {
   const cwd = await getGitRoot()
   const { stdout } = await execa('git', ['log', '-1', '--pretty=%s'], { cwd })

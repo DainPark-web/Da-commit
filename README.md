@@ -1,8 +1,6 @@
 # da-commit
 
 
-
-
 Interactive CLI for writing conventional commits — step by step, in the terminal.
 
 

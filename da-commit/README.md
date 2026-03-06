@@ -8,6 +8,7 @@ Interactive CLI for writing conventional commits — step by step, in the termin
 - Conventional Commits format with emoji (`✨ feat(scope): message`)
 - Stage/unstage files before committing
 - `--amend` mode to edit the last commit
+- `--push` flag to automatically push after committing
 - 14 commit types supported
 
 ## Install
@@ -25,8 +26,10 @@ npx da-commit
 ## Usage
 
 ```bash
-da-commit          # new commit
-da-commit --amend  # amend last commit
+da-commit               # new commit
+da-commit --amend       # amend last commit
+da-commit --push        # commit then push
+da-commit --amend --push  # amend then push
 ```
 
 ## Steps

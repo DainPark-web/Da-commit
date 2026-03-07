@@ -25,6 +25,17 @@ npx da-commit
 
 ## Usage
 
+Use `da-commit` instead of `git add . && git commit -m`:
+
+```bash
+# before
+git add .
+git commit -m "feat: add new feature"
+
+# with da-commit
+da-commit
+```
+
 ```bash
 da-commit               # new commit
 da-commit --amend       # amend last commit
